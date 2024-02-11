@@ -42,6 +42,53 @@ int main() {
 
     //std::cout << "SolutionWord: " << solutionWord << std::endl;
 
+    std::string playerGuess;
+
+    //for loop iterates down from 6 to 1 to correspond with the number of guesses the player has left
+    for (int i = 6; i > 0; i--) {
+        //while loop ensures user gives valid word as guess before moving on
+        while (true) {
+            std::cout << i << " guesses remaining." << std::endl;
+            std::cout << "Guess the 5-letter Wordle:" << std::endl;
+            std::cin >> playerGuess; 
+            //Ensure the guess is 5 letters long
+            if (playerGuess.length() != 5) {
+                std::cout << std::endl;
+                std::cout << "The word must be 5 letters long! Try again." << std::endl;
+                std::cout << std::endl;
+                //start the loop again
+                continue;
+            }
+            //If any of the letters are uppercase, convert to lowercase to match the word lists.
+            for (int j = 0; j < playerGuess.length(); j++) {
+                if (playerGuess[j] >= 65 && playerGuess[j] <= 90) {
+                    playerGuess[j] = playerGuess[j] + 32;
+                }
+            }
+            //Ensure the guess is a valid word from the word list
+            int validMatch = 0;
+            for (int j = 0; j < size(validGuesses); j++) {
+                //if the playerGuess matches a word from validGuesses, it's a valid match.
+                if (playerGuess == validGuesses[j]) {
+                    validMatch = 1;
+                }
+            }
+            if (validMatch == 0) {
+                std::cout << std::endl;
+                std::cout << "That guess isn't in the word list! Try again." << std::endl;
+                std::cout << std::endl;
+                continue;
+            }
+            //Otherwise if the program has made it to this point, the guess is a valid 5-letter word and break out of the while loop and move on
+            break;
+        }
+        std::cout << "valid guess, this is where you receive feedback" << std::endl;
+        std::cout << std::endl;
+    }
+
+    std::cout << "You're out of guesses!" << std::endl;
+    std::cout << "The word was: " << solutionWord << std::endl;
+
     return 0;
 }
 
