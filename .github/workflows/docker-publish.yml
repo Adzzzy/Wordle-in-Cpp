@@ -29,13 +29,15 @@ jobs:
                 password: ${{ secrets.GITHUB_TOKEN }} #Github actions automatically creates a GITHUB_TOKEN that can be used for authentication within workflows in place of a Personal Access Token (PAT)
 
             - name: Build and push image
-              run: | #pipe character allows consecutive run commands
+              run: | #pipe character allows consecutive run commands.
                 docker build . --tag ghcr.io/adzzzy/wordle-in-cpp:${{ github.sha }}
+                docker tag ghcr.io/adzzzy/wordle-in-cpp:${{ github.sha }} ghcr.io/adzzzy/wordle-in-cpp:latest
                 docker push ghcr.io/adzzzy/wordle-in-cpp:${{ github.sha }}
               #The image is first built using the pwd . as context and tagged with <image repo>/<repo owner>/<github repo>
               #The image repo name followed by the github account name is the format used for ghcr images, while the repo name can be anything, and will just be the github repo name in this case
               #The github.repository context variable could also be used (stores "Owner/Repo" belonging to current action) but it would need to be converted to lowercase, to be accepted as a tag.
               #The github.sha context variable stores a sha related to the commit which started the workflow and is appended on the end of the tag. This provides a way to identify the commit the image belongs to and have different tags for each publish rather than just "latest".
+              #The "latest" tag is also added to the image so that it can be pulled from the registry even when no tag is specified.
                 
 
 
