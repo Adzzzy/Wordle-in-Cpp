@@ -11,6 +11,10 @@ jobs:
 
         runs-on: ubuntu-latest #github runner vm will be based on ubuntu
 
+        permissions: #give the job permission to view the repo contents and write packages (such as to github container registry)
+            contents: read
+            packages: write
+
         steps:
             - name: Checkout repository #will clone the repo to the github runner vm performing the action
               uses: actions/checkout@v4
