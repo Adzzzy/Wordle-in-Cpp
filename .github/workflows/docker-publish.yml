@@ -1,0 +1,39 @@
+name: Docker Publish ghcr.io CI
+
+#Whenever something is pushed to the master branch, an image is built and published to ghcr.io
+#Any pull request resulting in a merge also includes a push and will therefore trigger this as well.
+on:
+    push:
+        branches: ["master"]
+
+jobs:
+    build_and_publish:
+
+        runs-on: ubuntu-latest #github runner vm will be based on ubuntu
+
+        steps:
+            - name: Checkout repository #will clone the repo to the github runner vm performing the action
+              uses: actions/checkout@v4
+
+            - name: Log into GHCR #Log into the github container registry so that images may be pushed
+              #Will use the docker/login-action github action. 
+              #Could also alternatively just run the docker CLI command: docker login
+              uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d # v3.0.0
+              with:
+                registry: ghcr.io
+                username: ${{ github.actor }} #Action context variable that stores the username of the user that triggered the initial workflow run. I.e. whoever pushed to the repo. Could also just put my username directly (Adzzzy)
+                password: ${{ secrets.GITHUB_TOKEN }} #Github actions automatically creates a GITHUB_TOKEN that can be used for authentication within workflows in place of a Personal Access Token (PAT)
+
+            - name: Build and push image
+              run: | #pipe character allows consecutive run commands
+                docker build . --tag ghcr.io/${{ github.repository }}:latest
+                docker push ghcr.io/${{ github.repository }}:latest
+              #The mage is first built using the pwd . as context and tagged to with <image repo>/<github account>/<github repo>
+              #The github.repository context variable stores the repo owner and the repo name that this action belongs to in the format "Owner/Repo"
+              #The image repo name followed by the github account name is the format used for ghcr images, while the repo name can be anything, and will just be the github repo name in this case
+              #The final tag in this case will be ghcr.io/Adzzzy/Wordle-in-Cpp
+                
+
+
+
+
