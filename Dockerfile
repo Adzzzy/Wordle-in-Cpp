@@ -7,9 +7,10 @@ LABEL maintainer="Adam Rebes <https://github.com/Adzzzy>"
 #temporarily become root to do elevated actions such as installs without requiring sudo
 USER root
 
-#Copies the contents of the host machine's present working directory into the image filesystem's pwd. (in this case it will be into root "/" which is the image's default working directory if not set with WORKDIR)
-COPY . .
-#Could also just copy the c++ file by itself directly into root since it's all we'll need in the image, e.g. COPY ./Wordle.cpp /
+#Copy files needed inside the image from the host machine to the image's filesystem.
+#In this case, since it's the only file in the project, just copy the c++ file itself directly into the image filesystem's pwd. (Here it will be into root "/" which is the image's default working directory if not set with WORKDIR)
+COPY ./Wordle.cpp /
+#Could instead copy the contents of the host machine's present working directory into the image's pwd with COPY . . but this can result in unnecessary files being included (such as the dockerfile itself, .git folder, readme, etc.) and a larger overall image size
 
 #refresh available packages then install g++ to use for c++ code compilation (--no-cache to keep the image size smaller)
 RUN apk update && apk add --no-cache g++
