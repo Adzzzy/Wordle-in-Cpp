@@ -21,7 +21,7 @@ If you'd rather set up your environment manually to compile and run C++ code you
 
 **Installing a C++ compiler**
 - If you're on Linux then just download the desired C++ compiler with the package manager of your Linux distribution. E.g. on Ubuntu using apt to install g++: `sudo apt update && sudo apt install g++`
-- On Mac install Xcode with: `xcode - select --install` which comes with the clang++ compiler.
+- On Mac install Xcode with: `xcode-select --install` which comes with the clang++ compiler.
 - On Windows head to https://visualstudio.microsoft.com/downloads/ and download the community version of Visual Studio. Then, open up the Visual Studio installer and install Visual Studio along with a workload such as "Desktop Development for C++" which includes the MSVC compiler.
 
 **Compile the C++ file into an executable**
