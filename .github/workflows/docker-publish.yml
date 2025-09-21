@@ -7,8 +7,8 @@ on:
     #Run this workflow whenever a new git tag is added that uses semantic versioning syntax. (Also triggers when releases with new semver tags are created)
     tags: [ 'v*.*' ]
 
-    #Only run on pushes to main branch as it is the primary branch which would be the least experimental and most up to date
-    #branches: ["main"]
+    #Only run on pushes to master branch as it is the primary branch which would be the least experimental and most up to date
+    #branches: ["master"]
     #In some cases it's better to not create a new image for every repo push as they may just be workflow or readme changes that aren't included in the docker image
     
   #May want to also create a new image when a github release is done. 
