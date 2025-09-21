@@ -14,6 +14,9 @@ The easiest way to run this project across a wide variety of different environme
 - Open up any terminal or shell. On Windows, Mac, or Linux simply search "Terminal" and open it up. You could also search for "Command Prompt" or "PowerShell" instead on Windows.
 - Paste the following into the terminal and press enter: `docker run -it ghcr.io/adzzzy/wordle-in-cpp`
 - After a few moments for downloading dependencies and the set-up needed to run on your device, the program will start and you're ready to play!
+
+Note: If you're after a specific version of the image, in the above command just add ":<VERSION>" onto the end of the image name. E.g. for version 1.0.0 write `docker run -it ghcr.io/adzzzy/wordle-in-cpp:v1.0.0`.
+Available versions can be seen here: https://github.com/Adzzzy/Wordle-in-Cpp/pkgs/container/wordle-in-cpp
 ---------------------------------------------------------------------------------------------------------------------------------------
 
 ### Manual Set-up
